@@ -1,0 +1,70 @@
+# Core framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+python-multipart==0.0.6
+httpx==0.26.0
+
+# LangChain ecosystem - using compatible versions
+langchain>=0.1.0,<0.2.0
+langchain-core>=0.1.25,<0.2.0
+langchain-community>=0.0.20,<0.1.0
+langchain-openai>=0.0.5,<0.1.0
+langgraph>=0.0.25,<0.1.0
+langsmith>=0.1.0,<0.2.0
+
+# Document processing
+unstructured[pdf]==0.12.4
+# unstructured-inference==0.7.23  # Optional, included with unstructured[pdf]
+PyMuPDF==1.23.21
+python-magic==0.4.27
+filetype==1.2.0
+python-pptx==0.6.23
+python-docx==1.1.0
+Pillow==10.2.0
+pdf2image==1.16.3
+pdfminer.six==20221105  # Pinned for compatibility with unstructured
+numpy>=1.21.0,<2.0.0  # Must be <2.0 for onnxruntime compatibility
+opencv-python>=4.8.0,<4.12.0  # Must be <4.12 for numpy <2.0 compatibility
+
+# OCR (optional) - comment out if installation fails
+# paddleocr==2.7.0.3
+# paddlepaddle==2.6.0
+
+# Web crawling
+trafilatura==1.6.3
+beautifulsoup4==4.12.3
+# lxml - install via conda: conda install -c conda-forge lxml
+playwright==1.41.2
+requests==2.31.0
+
+# Vector stores
+qdrant-client==1.7.3
+meilisearch==0.31.1
+
+# Caching and state
+redis==5.0.1
+hiredis==2.3.2
+
+# Text processing
+html2text==2024.2.26
+markdown==3.5.2
+tiktoken==0.5.2
+
+# Utilities
+python-dotenv==1.0.1
+aiofiles==23.2.1
+tenacity==8.2.3
+
+# Observability
+opentelemetry-api==1.22.0
+opentelemetry-sdk==1.22.0
+prometheus-client==0.19.0
+
+# Development
+pytest==7.4.4
+pytest-asyncio==0.23.3
+black==24.1.1
+ruff==0.1.14
+
