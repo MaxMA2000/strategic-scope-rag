@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border p-0 m-0;
+  }
+  
+  body {
+    @apply bg-[#1a1b1e] text-[#f2f3f5];
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-[#2b2d31];
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#404249] rounded;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#525560];
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.message-enter {
+  animation: slideIn 0.3s ease-out;
+}
+
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Code blocks */
+pre {
+  @apply bg-[#383a40] rounded-lg p-4 overflow-x-auto my-3;
+}
+
+code {
+  @apply text-sm;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+}
+
+/* Markdown prose styles */
+.prose {
+  @apply text-[#f2f3f5];
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply text-[#f2f3f5] font-semibold mt-6 mb-2;
+}
+
+.prose p {
+  @apply mb-4 leading-relaxed;
+}
+
+.prose ul,
+.prose ol {
+  @apply ml-6 mb-4;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose a {
+  @apply text-[#1abc9c] no-underline hover:underline;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-[#23a55a] pl-4 my-4 text-[#b5bac1];
+}
+
+.prose table {
+  @apply w-full border-collapse my-4;
+}
+
+.prose th,
+.prose td {
+  @apply border border-[#3f4147] p-2 text-left;
+}
+
+.prose th {
+  @apply bg-[#383a40] font-semibold;
+}
