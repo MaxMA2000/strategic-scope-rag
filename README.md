@@ -74,7 +74,8 @@ cd backend
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+# source venv/bin/activate  # Windows: venv\Scripts\activate
+source activate strategic-scope-rag
 
 # Install dependencies
 pip install -r requirements.txt
@@ -84,7 +85,7 @@ cp .env.example .env
 # Edit .env with your credentials
 
 # Start services (Redis, Qdrant, Meilisearch)
-docker-compose up redis qdrant meilisearch -d
+docker compose up redis qdrant meilisearch -d
 
 # Run API
 uvicorn app:app --reload --port 8001
