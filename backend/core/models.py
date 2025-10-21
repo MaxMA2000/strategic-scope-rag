@@ -123,7 +123,7 @@ class ChatClearRequest(BaseModel):
 
 class ExportBriefingRequest(BaseModel):
     project_id: str
-    query: Optional[str] = None
+    session_id: str
     template: Literal["brief", "swot", "sizing", "issue_tree", "risks", "action_plan"] = "brief"
 
 

@@ -322,10 +322,16 @@ async def chat(req: ChatRequest):
 async def clear_chat(req: ChatClearRequest):
     """Clear chat session history."""
     try:
-        # Clear from Redis via service
+        from services.session_service import session_service
+        
         session_id = req.session_id or "default"
-        # TODO: implement clear_session in a session service
-        return {"ok": True, "session_id": session_id}
+        success = session_service.clear_session(session_id)
+        
+        return {
+            "ok": success,
+            "session_id": session_id,
+            "message": "Session cleared successfully" if success else "Failed to clear session"
+        }
     except Exception as e:
         logger.error(f"Failed to clear chat: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
@@ -339,12 +345,40 @@ async def clear_chat(req: ChatClearRequest):
 async def export_briefing(req: ExportBriefingRequest):
     """Export consulting briefing as Markdown."""
     try:
-        # TODO: implement export logic
-        return {
-            "ok": True,
-            "template": req.template,
-            "message": "Export feature coming in P1"
-        }
+        from services.export_service import export_service
+        from services.project_service import project_service
+        
+        # Get project details
+        project = project_service.get_project(req.project_id)
+        project_name = project.get("name", req.project_id) if project else req.project_id
+        
+        # Generate markdown content
+        if req.template == "swot":
+            content = export_service.generate_swot_markdown(
+                req.project_id,
+                req.session_id,
+                project_name
+            )
+        else:
+            content = export_service.generate_briefing_markdown(
+                req.project_id,
+                req.session_id,
+                req.template,
+                project_name
+            )
+        
+        # Return as downloadable file
+        from fastapi.responses import Response
+        
+        filename = f"briefing_{req.project_id}_{req.template}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+        
+        return Response(
+            content=content,
+            media_type="text/markdown",
+            headers={
+                "Content-Disposition": f'attachment; filename="{filename}"'
+            }
+        )
     except Exception as e:
         logger.error(f"Failed to export briefing: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
